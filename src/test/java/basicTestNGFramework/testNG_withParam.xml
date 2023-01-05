@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="MyManualWrittenTest">
+	<parameter name="uName" value="userName"></parameter>
+	<parameter name="pWord" value="password"></parameter>
+	<test name="Test1_WithCorrectParam">
+		<classes>
+			<class name="basicTestNGFramework.TestCase1" />
+			<class name="basicTestNGFramework.TestCase2" />
+			<class name="basicTestNGFramework.TestCase3" />
+			<class name="basicTestNGFramework.TestDataPro" />
+		</classes>
+	</test>
+</suite>
