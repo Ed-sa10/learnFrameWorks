@@ -1,34 +1,44 @@
 package basicTestNGFramework;
 
-import java.io.File;
 import java.util.UUID;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-public abstract class Reporter {
+public class TestReporter{
 	public ExtentTest test;
 	public static ExtentReports extent;
 	public String testCaseName, testDescription, category, authors;
-	
+	public static UUID uuid;
+
+	public static void main(String[] args) {
+				TestReporter tr = new TestReporter();
+				tr.startResult();
+				tr.startTestCase("SomeTestA1", "Lets create the Test 01");
+				tr.reportStep("AAAAA", "PASS");
+				tr.endTestcase();
+				tr.startTestCase("SomeOtherTestB1", "Lets create the Test 02");
+				tr.reportStep("BBBBB", "FAIL");
+				tr.endTestcase();
+				tr.startTestCase("SomeOtherTestC1", "Lets create the Test 03");
+				tr.reportStep("CCCCC", "INFO");
+				tr.endTestcase();
+				tr.endResult();
+				System.out.println("Done");
+				
+	}
 	public void reportStep(String desc, String status) {
 
-		long snapNumber = 100000l;
 		
-		try {
-			snapNumber= takeSnap();
-			//Thread.sleep(2000);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		uuid = UUID.randomUUID();
 		
 		// Write if it is successful or failure or information
 		if(status.toUpperCase().equals("PASS")){
 			test.log(LogStatus.PASS, desc+test.
-					addScreenCapture("./../reports/images/"+snapNumber+".jpg"));
+					addScreenCapture("./../reports/images/"+uuid.toString()+".jpg"));
 		}else if(status.toUpperCase().equals("FAIL")){
-			test.log(LogStatus.FAIL, desc+test.addScreenCapture("./reports/images/"+snapNumber+".jpg"));
+			test.log(LogStatus.FAIL, desc+test.addScreenCapture("./../reports/images/"+uuid.toString()+".jpg"));
 			//throw new RuntimeException("FAILED");
 		}else if(status.toUpperCase().equals("INFO")){
 			test.log(LogStatus.INFO, desc);
@@ -36,6 +46,9 @@ public abstract class Reporter {
 		
 	}
 	public void reportStepNoSnap( String desc,String status) {
+
+		
+		
 		// Write if it is successful or failure or information
 		if(status.toUpperCase().equals("PASS")){
 			test.log(LogStatus.PASS,desc);
@@ -46,12 +59,15 @@ public abstract class Reporter {
 			test.log(LogStatus.INFO, desc);
 		}
 	}
-	public abstract long takeSnap();
-	
 
 	public ExtentReports startResult(){
-		extent = new ExtentReports("./reports/result.html", false);
+		//extent = new ExtentReports("./reports/result.html", false);
 		//extent.loadConfig(new File("./src/test/resources/extent-config.xml"));
+		
+		UUID uuid = UUID.randomUUID();
+		String path = "./reports/result" + uuid.toString() + ".html";
+		System.out.println("Saving report as : " + path);
+		extent = new ExtentReports(path, false);
 		return extent;
 	}
 
@@ -60,7 +76,7 @@ public abstract class Reporter {
 		return test;
 	}
 
-	public void endResult(){
+	public void endResult(){		
 		extent.flush();
 	}
 
@@ -68,6 +84,4 @@ public abstract class Reporter {
 		extent.endTest(test);
 	}
 
-	
-	
 }

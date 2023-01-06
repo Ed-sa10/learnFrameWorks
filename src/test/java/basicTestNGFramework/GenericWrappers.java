@@ -24,13 +24,14 @@ import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class GenericWrappers implements Wrappers {
+public class GenericWrappers extends Reporter implements Wrappers {
 	WebDriver driver;
 	int i = 1;
 
 	public void invokeApp(String browser, String Url) {
 
 		try {
+			//startResult();
 			if (browser.equalsIgnoreCase("Chrome")) {
 				WebDriverManager.chromedriver().setup();
 				// Below is the learners approach, but its recommended to use WebDriverManager
@@ -375,16 +376,18 @@ public class GenericWrappers implements Wrappers {
 		}
 	}
 	
-	
-	public void takeSnap() {
-		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		File destFile = new File("./snaps/snap" + i + ".jpg");
+	public long takeSnap() {
+		long number = (long) Math.floor(Math.random() * 900000000L) + 10000000L; 
 		try {
-			FileUtils.copyFile(src, destFile);
+			
+			FileUtils.copyFile(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE) , new File("./reports/images/"+number+".jpg"));
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		} catch (WebDriverException e) {
+			reportStep("The browser has been closed.", "FAIL");
 		} catch (IOException e) {
-			e.printStackTrace();
+			reportStep("The snapshot could not be taken", "WARN");
 		}
-		i++;
+		return (long)number;
 	}
 
 	public void closeBrowser() {

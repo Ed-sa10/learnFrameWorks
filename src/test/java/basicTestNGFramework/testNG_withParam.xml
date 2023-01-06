@@ -6,9 +6,9 @@
 	<test name="Test1_WithCorrectParam">
 		<classes>
 			<class name="basicTestNGFramework.TestCase1" />
-			<class name="basicTestNGFramework.TestCase2" />
+			<!--class name="basicTestNGFramework.TestCase2" />
 			<class name="basicTestNGFramework.TestCase3" />
-			<class name="basicTestNGFramework.TestDataPro" />
+			<class name="basicTestNGFramework.TestDataPro" /-->
 		</classes>
 	</test>
 </suite>

@@ -29,11 +29,7 @@ public class TestDataPro {
 		XSSFSheet sheet = workbook.getSheet("Sheet1");
 
 		for(int i=1; i<=sheet.getLastRowNum(); i++) {
-			XSSFRow row = sheet.getRow(i); 
-			//{Mumbai Delhi 5}, 	Iteration 1
-			//{Pune Hyderabad 3},	Iteration 2
-			//{Banglore, Chennai, 0}Iteration 3
-			
+			XSSFRow row = sheet.getRow(i); 			
 			for(int j=0; j<row.getLastCellNum(); j++) {
 				XSSFCell cell = row.getCell(j);				
 				if(j==2) {

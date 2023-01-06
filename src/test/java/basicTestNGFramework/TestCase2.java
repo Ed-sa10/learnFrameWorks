@@ -10,7 +10,7 @@ public class TestCase2 extends GenericWrappers {
 	public void testCase2() throws InterruptedException {
 		invokeApp("Chrome", "https://demoqa.com/login");
 		enterById("userName", "test");
-		((JavascriptExecutor)driver).executeScript("window.scrollBy(0,300)");
+		((JavascriptExecutor)driver).executeScript("window.scrollBy(0,150)");
 		enterById("password", "Dheeshi3101*");
 		clickById("login");
 		Thread.sleep(2000);

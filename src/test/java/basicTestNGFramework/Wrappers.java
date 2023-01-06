@@ -194,7 +194,7 @@ public interface Wrappers {
 	 * This method will take snapshot of the browser
 	 * @author Edd
 	 */
-	public void takeSnap();
+	public long takeSnap();
 		
 	/**
 	 * This method will close the active browser
